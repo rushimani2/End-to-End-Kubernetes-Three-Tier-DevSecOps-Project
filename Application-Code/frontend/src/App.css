@@ -2,10 +2,12 @@
     display: flex;
     flex-direction: column;
     height: 100vh;
+    position: relative; /* Required for absolute positioning of background elements */
+    overflow: hidden; /* Prevent overflow */
 }
 
 .app-header {
-    background-color: #282c34;
+    background-color: #4a90e2; /* Changed to a blue shade */
     color: white;
     padding: 10px 20px;
     text-align: center;
@@ -24,6 +26,10 @@
     width: 100%;
     max-width: 600px;
     padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2);
 }
 
 .task-form {
@@ -34,12 +40,24 @@
 
 .task-input {
     flex-grow: 1;
+    border: 1px solid #4a90e2; /* Blue border */
+    border-radius: 4px;
+    padding: 10px;
 }
 
 .add-task-btn, .delete-task-btn {
     flex-shrink: 0;
-    box-shadow: 0px 2px 5px rgba(0,0,0,0.2);
+    background-color: #5cb85c; /* Green for add button */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
     transition: transform 0.1s ease-in-out;
+}
+
+.delete-task-btn {
+    background-color: #d9534f; /* Red for delete button */
 }
 
 .add-task-btn:hover, .delete-task-btn:hover {
@@ -55,15 +73,66 @@
     align-items: center;
     margin-top: 10px;
     padding: 10px;
-    box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+    background-color: #f7f7f7; /* Light gray background */
+    border-left: 4px solid #4a90e2; /* Blue left border */
+    box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
 }
 
 .task-text {
     flex-grow: 1;
     margin: 0 10px;
+    color: #333; /* Darker text */
 }
 
 .task-text.completed {
     text-decoration: line-through;
+    color: #999; /* Gray for completed tasks */
 }
 
+/* Background bubbles, stars, and squares */
+.bubbles, .stars, .squares {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Allows clicking on the content */
+    z-index: 0; /* Set behind other content */
+}
+
+.bubble, .star, .square {
+    position: absolute;
+    opacity: 0.6;
+}
+
+.bubble {
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+}
+
+.star {
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-bottom: 10px solid yellow;
+    transform: rotate(35deg);
+}
+
+.square {
+    background: rgba(255, 215, 0, 0.8); /* Gold color */
+}
+
+/* Generate animations and positions using JavaScript */
+@keyframes rise {
+    0% {
+        transform: translateY(0);
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(-100vh); /* Move up */
+        opacity: 0; /* Fade out */
+    }
+}
+
+/* Additional styles for animated elements will be generated dynamically */
